@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ConcertApp.Web.Models.Concert>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1 class="text-center">All Concerts</h1>
+
+<div class="d-flex justify-content-between">
+    <a class="btn btn-success" asp-controller="Concerts" asp-action="Create">Add New Concert</a>
+    <a class="btn btn-success" asp-controller="Tickets" asp-action="Create">Buy A Ticket</a>
+</div>
+
+<div class="container p-3">
+    @for(int i = 0; i < Model.Count(); i++)
+    {
+        var concert = Model.ToList()[i];
+
+        if(i % 3 == 0)
+        {
+        @:<div class="row m-3 d-flex justify-content-around">
+        }
+
+        
+        
+            <div class="card col-3" style="width: 18rem;">
+                <!-- Assuming ConcertImage is a property in your Concert model -->
+                <img class="card-img-top h-50" src="@concert.ConcertImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@concert.ConcertName</h5>
+                    <!-- Format ConcertDate as desired -->
+                    <p class="card-text">@concert.ConcertDate</p>
+                    <p class="card-text">@concert.ConcertPlace</p>
+                    <!-- Assuming ConcertPrice is a numeric type -->
+                    <p class="card-text">@concert.ConcertPrice EUR</p>
+                    <hr />
+                    <div class="d-flex justify-content-around">
+                        <a class="btn btn-info" asp-controller="Concerts" asp-action="Edit" asp-route-id="@concert.Id">Edit</a>
+                        <a class="btn btn-secondary" asp-controller="Concerts" asp-action="Details" asp-route-id="@concert.Id">Details</a>
+                        <a class="btn btn-danger" asp-controller="Concerts" asp-action="Delete" asp-route-id="@concert.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+        if (i % 3 == 2)
+        {
+
+        @:</div>
+        }
+    }
+</div>
